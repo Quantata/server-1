@@ -139,5 +139,4 @@ public class HomeService {
         return DefaultRes.res(StatusCode.OK, ResponseMessage.READ_ALL_CONTENTS, themePicList);
     }
 
-
 }

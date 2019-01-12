@@ -159,6 +159,15 @@ public class UserService {
         }
     }
 
+    public DefaultRes findUserEmailExist(final String email){
+        final User user = userMapper.findByEmail(email);
+        if(user==null){
+            return DefaultRes.res(StatusCode.OK, ResponseMessage.READ_CONTENT);
+        }else{
+            return DefaultRes.res(StatusCode.FORBIDDEN, ResponseMessage.ALREADY_USER);
+        }
+    }
+
 
 
     /**

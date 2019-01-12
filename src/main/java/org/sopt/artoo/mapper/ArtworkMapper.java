@@ -19,8 +19,19 @@ public interface ArtworkMapper {
             " ORDER BY artwork.a_idx DESC LIMIT 15")
     List<Artwork> findAll(@Param("a_idx") final int a_idx);
 
+    /**
+     * 미술작품 전체 조회
+     *
+     * @return 미술작품전체
+     */
+    @Select("SELECT * FROM artwork WHERE a_active = 1 ORDER BY artwork.a_date DESC")
+    List<Artwork> findAllIos();
+
     @Select("SELECT * FROM artwork WHERE a_active = 1 AND a_idx < #{a_idx} ORDER BY artwork.a_idx DESC LIMIT 15")
     List<ArtworkMini> findAllIndexAndUrl(@Param("a_idx") final int a_idx);
+
+    @Select("SELECT * FROM artwork WHERE a_active = 1 ORDER BY artwork.a_date DESC")
+    List<ArtworkMini> findAllIndexAndUrlIos();
 
     @Select("SELECT * FROM artwork WHERE a_active = 1")
     List<Artwork> findRealAll();

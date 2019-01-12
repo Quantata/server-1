@@ -29,6 +29,13 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
+    @PostMapping("/u_email/{u_email}")
+    public ResponseEntity getUserEmail(
+            @PathVariable("u_email") final String email){
+        DefaultRes defaultRes = userService.findUserEmailExist(email);
+        return new ResponseEntity<>(defaultRes, HttpStatus.OK);
+    }
+
 
     /**
      * 유저의 미술품 보여주기
@@ -150,20 +157,18 @@ public class UserController {
     }
 
 
-    /******* 유저 정보 변경 *******/
+
 
 
     /**
      *
-     * @param header
      * @param userIdx
      * @return User 객체
      */
     @GetMapping("/{u_idx}/myInfo")
     public ResponseEntity getUserInfo(
-            @RequestHeader (value = "Authorization", required = false) final String header,
             @PathVariable("u_idx") final int userIdx) {
-        if (jwtService.checkAuth(header, userIdx)) {
+
             try {
                 DefaultRes defaultRes = userService.findUser(userIdx);
                 return new ResponseEntity<>(defaultRes, HttpStatus.OK);
@@ -171,10 +176,9 @@ public class UserController {
                 log.error(e.getMessage());
                 return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
             }
-        } else {
-            return new ResponseEntity(FAIL_AUTHORIZATION_RES, HttpStatus.UNAUTHORIZED);
-        }
     }
+
+        /******* 유저 정보 변경 *******/
 
     /**
      * 비밀 번호를 제외한 회원 정보 수정

@@ -370,12 +370,9 @@ public class UserService {
     public DefaultRes userPwChange(final int userIdx, final UserPwInfo userPwInfo) {
         if (userMapper.findByUidx(userIdx) != null) {
             try {
-                String userPw = userMapper.checkUserPw(userIdx);
-
                 if(!userMapper.checkUserPw(userIdx).equalsIgnoreCase(PasswordIncoder.incodePw(userPwInfo.getU_pw_current()))){
                     return DefaultRes.res(StatusCode.OK, ResponseMessage.WRONG_PASSWORD);
                 }
-
                 else if(!userPwInfo.getU_pw_new().equals(userPwInfo.getU_pw_check())){
                     return DefaultRes.res(StatusCode.OK, ResponseMessage.WRONG_CHECK_PASSWORD);
                 }
